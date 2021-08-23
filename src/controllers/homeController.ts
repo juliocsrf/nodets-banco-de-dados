@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 
-import { sequelize } from '../instances/mysql';
+import { sequelize } from '../instances/pg';
 
 import { Product } from '../models/Product';
 
