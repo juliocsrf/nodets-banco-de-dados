@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { User } from '../models/User';
 
 export const nome = (req: Request, res: Response) => {
     let nome: string = req.query.nome as string;
@@ -30,3 +31,24 @@ export const idadeAction = (req: Request, res: Response) => {
         mostrarIdade
     });
 };
+
+export const store = async (req: Request, res: Response) => {
+    if(req.body.name) {
+        let name = req.body.name as string;
+        let age: number = parseInt(req.body.age as string);
+
+        let newUser = User.build({name});
+
+        if(age && !isNaN(age)) {
+            newUser.age = age;
+        }
+
+        try {
+            await newUser.save();
+        } catch (e) {
+            console.log('Erro ao inserir o usuário: ', e);
+        }
+    }
+
+    res.redirect('/');
+}

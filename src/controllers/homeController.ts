@@ -5,21 +5,6 @@ import { User } from '../models/User';
 
 export const home = async (req: Request, res: Response)=>{
 
-    // build + save
-    const user = User.build({
-        name: 'Fulaninho',
-        ade: 25
-    });
-
-    //await user.save();
-
-    // create
-
-    const user2 = await User.create({
-        name: 'Julin',
-        age: 39
-    });
-
     let age: number = 90;
     let showOld: boolean = false;
 
@@ -30,12 +15,15 @@ export const home = async (req: Request, res: Response)=>{
     let list = Product.getAll();
     let expensiveList = Product.getFromPriceAfter(12);
 
+    let users = await User.findAll();
+
     res.render('pages/home', {
         name: 'Bonieky',
         lastName: 'Lacerda',
         showOld,
         products: list,
         expensives: expensiveList,
-        frasesDoDia: []
+        frasesDoDia: [],
+        users
     });
 };
