@@ -14,11 +14,23 @@ export const User = sequelize.define<UserInstance>('User', {
         type: DataTypes.INTEGER
     },
     name: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
+        get() {
+            return this.getDataValue('name').toUpperCase();
+        }
     },
     age: {
         type: DataTypes.INTEGER,
-        defaultValue: 18
+        defaultValue: 18,
+        set(value: number) {
+            if(value < 18) {
+                value = 18;
+            }
+            this.setDataValue('age', value);
+        }
+    },
+    password: {
+        type: DataTypes.STRING
     }
 }, {
     tableName: 'users',
