@@ -25,7 +25,7 @@ Opa {{name}} {{lastName}}, tudo bem?
 <ul>
     {{#users}}
         <li style="display: flex;"> 
-            {{name}} - Idade: {{age}}
+            {{name}} - Idade: {{age}} ({{firstLetterOfName}})
             <form method="POST" action="/add-age/{{id}}"><input type="submit" value="+"/></form>
             <form method="POST" action="/remove-age/{{id}}"><input type="submit" value="-"/></form>
             <form method="POST" action="/delete/{{id}}"><input type="submit" value="Excluir"/></form>
