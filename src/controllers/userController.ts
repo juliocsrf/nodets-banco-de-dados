@@ -19,7 +19,7 @@ export const idadeAction = (req: Request, res: Response) => {
     let mostrarIdade: boolean = false;
     let idade: number = 0;
 
-    if(req.body.ano) {
+    if (req.body.ano) {
         let anoNascimento: number = parseInt(req.body.ano as string);
         let anoAtual: number = new Date().getFullYear();
         idade = anoAtual - anoNascimento;
@@ -33,13 +33,13 @@ export const idadeAction = (req: Request, res: Response) => {
 };
 
 export const store = async (req: Request, res: Response) => {
-    if(req.body.name) {
+    if (req.body.name) {
         let name = req.body.name as string;
         let age: number = parseInt(req.body.age as string);
 
-        let newUser = User.build({name});
+        let newUser = User.build({ name });
 
-        if(age && !isNaN(age)) {
+        if (age && !isNaN(age)) {
             newUser.age = age;
         }
 
@@ -48,6 +48,40 @@ export const store = async (req: Request, res: Response) => {
         } catch (e) {
             console.log('Erro ao inserir o usuário: ', e);
         }
+    }
+
+    res.redirect('/');
+}
+
+export const addAge = async (req: Request, res: Response) => {
+    if (req.params.id) {
+        let user = await User.findOne({ where: { id: parseInt(req.params.id) } });
+
+        if (user) {
+            user.age++;
+            await user.save();
+        }
+    }
+
+    res.redirect('/');
+}
+
+export const removeAge = async (req: Request, res: Response) => {
+    if (req.params.id) {
+        let user = await User.findOne({ where: { id: parseInt(req.params.id) } });
+
+        if (user) {
+            user.age--;
+            await user.save();
+        }
+    }
+
+    res.redirect('/');
+}
+
+export const destroy = async (req: Request, res: Response) => {
+    if (req.params.id) {
+        await User.destroy({ where: { id: parseInt(req.params.id) } });
     }
 
     res.redirect('/');

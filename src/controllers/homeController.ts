@@ -10,9 +10,7 @@ export const home = async (req: Request, res: Response) => {
 
     if(results.length > 0) {
         let usuario = results[0];
-        usuario.name = 'Trocou a idade';
-        usuario.age++;
-        await usuario.save();
+        await usuario.destroy();
     }
 
     let age: number = 90;
